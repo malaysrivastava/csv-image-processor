@@ -28,7 +28,7 @@ export class ImageProcessor {
           const processedUrls = await Promise.all(
             inputUrls.map(url => this.imageService.processImage(url))
           );
-          
+          delete record['Input Image Urls'];
           return {
             ...record,
             'Output Image Urls': processedUrls.join(',')
