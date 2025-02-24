@@ -5,7 +5,7 @@ import * as path from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.use('/uploads', express.static(path.join(__dirname, '..', 'public/uploads')));
+  app.use('/uploads', express.static(path.join(__dirname, '..', '/uploads')));
 
   await app.listen(process.env.PORT);
 }

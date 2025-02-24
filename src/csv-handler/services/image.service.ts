@@ -15,7 +15,7 @@ export class ImageService {
       .toBuffer();
 
     const filename = `processed-${Date.now()}.jpg`;
-    const filepath = path.join(__dirname, '../../../public/uploads', filename);
+    const filepath = path.join(__dirname, '../../../uploads', filename);
 
     fs.mkdirSync(path.dirname(filepath), { recursive: true });
 
