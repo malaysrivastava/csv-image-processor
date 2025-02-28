@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import * as sharp from 'sharp';
+import sharp from 'sharp';
 import axios from 'axios';
-import * as fs from 'fs';
-import * as path from 'path';
-
+import { S3 } from 'aws-sdk';
 @Injectable()
 export class ImageService {
   async processImage(imageUrl: string): Promise<string> {
@@ -15,12 +13,21 @@ export class ImageService {
       .toBuffer();
 
     const filename = `processed-${Date.now()}.jpg`;
-    const filepath = path.join(__dirname, '../../../uploads', filename);
+    const s3 = new S3({
+      region: process.env.AWS_REGION,
+      credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      },
+    });
+    const uploadParams = {
+      Bucket: process.env.AWS_BUCKET_NAME,
+      Key: filename,
+      ContentType: 'image/jpeg',
+      Body: processedBuffer,
+    };
+    const result = await s3.upload(uploadParams).promise();
 
-    fs.mkdirSync(path.dirname(filepath), { recursive: true });
-
-    fs.writeFileSync(filepath, processedBuffer);
-
-    return `${process.env.HOST}/uploads/${filename}`;
+    return result.Location;
   }
 }
