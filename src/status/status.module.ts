@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { StatusController } from './status.controller';
-import { ProcessingRequest } from '../entities/processing-request.entity';
+import { ProcessedMetadata } from '../entities/processing-request.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ProcessingRequest]),
+    TypeOrmModule.forFeature([ProcessedMetadata]),
   ],
   controllers: [StatusController],
 })

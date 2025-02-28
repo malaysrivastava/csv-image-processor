@@ -5,14 +5,14 @@ import { CsvService } from './services/csv.service';
 import { WebhookService } from './services/webhook.service';
 import { ImageProcessor } from './processors/image.processor';
 import { ImageService } from './services/image.service';
-import { ProcessingRequest } from '../entities/processing-request.entity';
+import { ProcessedMetadata } from '../entities/processing-request.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 @Module({
   imports: [
     BullModule.registerQueue({
       name: 'image-processing',
     }),
-    TypeOrmModule.forFeature([ProcessingRequest]),
+    TypeOrmModule.forFeature([ProcessedMetadata]),
   ],
   controllers: [CsvHandlerController],
   providers: [CsvService, WebhookService, ImageProcessor, ImageService],

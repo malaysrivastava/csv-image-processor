@@ -1,13 +1,13 @@
 import { Controller, Get, NotFoundException, Query } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ProcessingRequest } from '../entities/processing-request.entity';
+import { ProcessedMetadata } from '../entities/processing-request.entity';
 
 @Controller('status')
 export class StatusController {
   constructor(
-    @InjectRepository(ProcessingRequest)
-    private readonly requestRepository: Repository<ProcessingRequest>,
+    @InjectRepository(ProcessedMetadata)
+    private readonly requestRepository: Repository<ProcessedMetadata>,
   ) {}
 
   @Get()

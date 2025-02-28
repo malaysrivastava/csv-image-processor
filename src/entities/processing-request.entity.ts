@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
-export class ProcessingRequest {
+export class ProcessedMetadata {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

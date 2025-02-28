@@ -2,7 +2,7 @@ import { Process, Processor } from '@nestjs/bull';
 import { Job } from 'bull';
 import { ImageService } from '../services/image.service';
 import { WebhookService } from '../services/webhook.service';
-import { ProcessingRequest } from '../../entities/processing-request.entity';
+import { ProcessedMetadata } from '../../entities/processing-request.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -11,8 +11,8 @@ export class ImageProcessor {
   constructor(
     private readonly imageService: ImageService,
     private readonly webhookService: WebhookService,
-    @InjectRepository(ProcessingRequest)
-    private readonly requestRepository: Repository<ProcessingRequest>,
+    @InjectRepository(ProcessedMetadata)
+    private readonly requestRepository: Repository<ProcessedMetadata>,
   ) {}
 
   @Process('process')

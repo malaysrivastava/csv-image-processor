@@ -4,7 +4,7 @@ import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
 import { v4 as uuid } from 'uuid';
 import { CsvService } from './services/csv.service';
-import { ProcessingRequest } from '../entities/processing-request.entity';
+import { ProcessedMetadata } from '../entities/processing-request.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Body } from '@nestjs/common';
@@ -14,8 +14,8 @@ export class CsvHandlerController {
   constructor(
     private readonly csvService: CsvService,
     @InjectQueue('image-processing') private readonly imageQueue: Queue,
-    @InjectRepository(ProcessingRequest)
-    private readonly requestRepository: Repository<ProcessingRequest>,
+    @InjectRepository(ProcessedMetadata)
+    private readonly requestRepository: Repository<ProcessedMetadata>,
   ) {}
 
   @Post('upload')

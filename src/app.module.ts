@@ -5,7 +5,7 @@ import { BullModule } from '@nestjs/bull';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CsvHandlerModule } from './csv-handler/csv-handler.module';
 import { StatusModule } from './status/status.module';
-import { ProcessingRequest } from './entities/processing-request.entity';
+import { ProcessedMetadata } from './entities/processing-request.entity';
 import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
@@ -17,7 +17,7 @@ import { ConfigModule } from '@nestjs/config';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [ProcessingRequest],
+      entities: [ProcessedMetadata],
       ssl: {
         rejectUnauthorized: false
       },
