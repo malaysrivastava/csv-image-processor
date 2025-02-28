@@ -1,4 +1,4 @@
-import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
@@ -24,6 +24,10 @@ export class CsvHandlerController {
     @UploadedFile() file: Express.Multer.File,
     @Body('webhookUrl') webhookUrl?: string,
   ) {
+    if (!file) {
+      throw new BadRequestException('File is required. Please upload a CSV file.');
+    }
+
     const records = await this.csvService.validateAndParse(file);
     const requestId = uuid();
 
